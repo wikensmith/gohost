@@ -1,4 +1,4 @@
-module gohost
+module github.com/wikensmith/gohost
 
 go 1.13
 

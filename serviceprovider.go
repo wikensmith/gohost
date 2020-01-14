@@ -1,4 +1,4 @@
-package main
+package gohost
 
 import (
 	"fmt"
@@ -7,7 +7,7 @@ import (
 	"os/signal"
 	"syscall"
 
-	"gohost/queue"
+	"github.com/wikensmith/gohost/queue"
 	"github.com/streadway/amqp"
 )
 
