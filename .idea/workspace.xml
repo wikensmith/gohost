@@ -1,13 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="dd27594b-c075-444c-b115-b19a9779a4bf" name="Default Changelist" comment="" />
+    <list default="true" id="dd27594b-c075-444c-b115-b19a9779a4bf" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/Administrator.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/watcherTasks.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/golog/19016-01-19.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/golog/golog.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/golog/log_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/golog/structDefined.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/info/2020-01-20.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mqservices/mqservices.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/github.com/satori/go.uuid/.travis.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/github.com/satori/go.uuid/LICENSE" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/github.com/satori/go.uuid/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/github.com/satori/go.uuid/codec.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/github.com/satori/go.uuid/generator.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/github.com/satori/go.uuid/sql.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/github.com/satori/go.uuid/uuid.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/github.com/streadway/amqp/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/github.com/streadway/amqp/.travis.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/github.com/streadway/amqp/CONTRIBUTING.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/github.com/streadway/amqp/LICENSE" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/github.com/streadway/amqp/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/github.com/streadway/amqp/allocator.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/github.com/streadway/amqp/auth.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/github.com/streadway/amqp/certs.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/github.com/streadway/amqp/channel.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/github.com/streadway/amqp/confirms.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/github.com/streadway/amqp/connection.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/github.com/streadway/amqp/consumers.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/github.com/streadway/amqp/delivery.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/github.com/streadway/amqp/doc.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/github.com/streadway/amqp/fuzz.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/github.com/streadway/amqp/gen.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/github.com/streadway/amqp/go.mod" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/github.com/streadway/amqp/pre-commit" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/github.com/streadway/amqp/read.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/github.com/streadway/amqp/return.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/github.com/streadway/amqp/spec091.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/github.com/streadway/amqp/types.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/github.com/streadway/amqp/uri.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/github.com/streadway/amqp/write.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/modules.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/main_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/queue/context.go" beforeDir="false" afterPath="$PROJECT_DIR$/queue/context.go" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Go File" />
+      </list>
+    </option>
+  </component>
   <component name="GOROOT" path="D:/program files/go" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GoLibraries">
+    <option name="indexEntireGoPath" value="false" />
+  </component>
+  <component name="JsbtTreeLayoutManager">
+    <layout place="tools.popupGrunt">
+      <scroll-view-position x="0" y="0" />
+    </layout>
+  </component>
   <component name="ProjectId" id="1WJzaA7DeCImYfOpsvOA4G1OxM9" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -15,11 +81,15 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DefaultGoTemplateProperty" value="Go File" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../pkg" />
+    <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
+    <property name="last_opened_file_path" value="E:/go/src/watchers.xml" />
+    <property name="settings.editor.selected.configurable" value="watcher.settings" />
   </component>
   <component name="RunManager">
     <configuration name="go build main.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
@@ -51,11 +121,30 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VgoProject">
+    <integration-enabled>true</integration-enabled>
+    <proxy>direct</proxy>
+  </component>
   <component name="WindowStateProjectService">
-    <state x="580" y="189" key="FileChooserDialogImpl" timestamp="1578882835742">
+    <state x="262" y="82" key="#Go_Modules_(vgo)" timestamp="1579244778071">
       <screen x="0" y="0" width="1600" height="870" />
     </state>
-    <state x="580" y="189" key="FileChooserDialogImpl/1600.244.1080.1890/0.0.1600.870@0.0.1600.870" timestamp="1578882835742" />
+    <state x="262" y="82" key="#Go_Modules_(vgo)/1600.244.1080.1890/0.0.1600.870@0.0.1600.870" timestamp="1579244778071" />
+    <state x="580" y="189" key="FileChooserDialogImpl" timestamp="1579487708160">
+      <screen x="0" y="0" width="1600" height="870" />
+    </state>
+    <state x="580" y="189" key="FileChooserDialogImpl/1600.244.1080.1890/0.0.1600.870@0.0.1600.870" timestamp="1579487708160" />
     <state width="1556" height="293" key="GridCell.Tab.0.bottom" timestamp="1578882838110">
       <screen x="0" y="0" width="1600" height="870" />
     </state>
@@ -72,5 +161,29 @@
       <screen x="0" y="0" width="1600" height="870" />
     </state>
     <state width="1556" height="293" key="GridCell.Tab.0.right/1600.244.1080.1890/0.0.1600.870@0.0.1600.870" timestamp="1578882838109" />
+    <state x="301" y="66" key="SettingsEditor" timestamp="1579487710700">
+      <screen x="0" y="0" width="1600" height="870" />
+    </state>
+    <state x="301" y="66" key="SettingsEditor/1600.244.1080.1890/0.0.1600.870@0.0.1600.870" timestamp="1579487710700" />
+    <state x="392" y="167" key="Vcs.Push.Dialog.v2" timestamp="1579486771337">
+      <screen x="0" y="0" width="1600" height="870" />
+    </state>
+    <state x="392" y="167" key="Vcs.Push.Dialog.v2/1600.244.1080.1890/0.0.1600.870@0.0.1600.870" timestamp="1579486771337" />
+    <state x="592" y="351" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1579485063717">
+      <screen x="0" y="0" width="1600" height="870" />
+    </state>
+    <state x="592" y="351" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1600.244.1080.1890/0.0.1600.870@0.0.1600.870" timestamp="1579485063717" />
+    <state width="600" height="424" key="javadoc.popup" timestamp="1579488106266">
+      <screen x="0" y="0" width="1600" height="870" />
+    </state>
+    <state width="600" height="424" key="javadoc.popup/1600.244.1080.1890/0.0.1600.870@0.0.1600.870" timestamp="1579488106266" />
+    <state x="666" y="290" width="250" height="278" key="jetbrains.javascript.buildTools.run-task-popup" timestamp="1579426164328">
+      <screen x="0" y="0" width="1600" height="870" />
+    </state>
+    <state x="666" y="290" width="250" height="278" key="jetbrains.javascript.buildTools.run-task-popup/1600.244.1080.1890/0.0.1600.870@0.0.1600.870" timestamp="1579426164328" />
+    <state x="463" y="182" width="672" height="678" key="search.everywhere.popup" timestamp="1579483771568">
+      <screen x="0" y="0" width="1600" height="870" />
+    </state>
+    <state x="463" y="182" width="672" height="678" key="search.everywhere.popup/1600.244.1080.1890/0.0.1600.870@0.0.1600.870" timestamp="1579483771568" />
   </component>
 </project>
