@@ -102,3 +102,10 @@ func (c *Context) NextTo(exchangeName string, routingKey string, msg amqp.Publis
 		fmt.Println("MQ 消息发送成功")
 	}
 }
+
+// 封装context 构造函数
+func NewContext() *Context {
+	c := new(Context)
+	c.ResultMap = make(map[string]string)
+	return c
+}

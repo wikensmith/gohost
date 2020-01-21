@@ -20,7 +20,10 @@ func connect(queueName string, f func(queue.Context) string) {
 	}
 	defer conn.Close()
 	ch, _ := conn.Channel()
-	ch.Qos(3, 0, true)
+	err = ch.Qos(3, 0, true)
+	if err != nil {
+		fmt.Println("err in ch.Qos", err)
+	}
 	defer ch.Close()
 	fmt.Println(queueName)
 	msgChan, _ := ch.Consume(
@@ -32,8 +35,10 @@ func connect(queueName string, f func(queue.Context) string) {
 		false,
 		nil)
 	for msg := range msgChan {
-		context := queue.Context{QueueObj: msg, Channel: ch}
-		go f(context)
+		context := queue.NewContext()
+		context.QueueObj = msg
+		context.Channel = ch
+		go f(*context)
 	}
 }
 
