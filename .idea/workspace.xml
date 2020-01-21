@@ -2,53 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dd27594b-c075-444c-b115-b19a9779a4bf" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/Administrator.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/watcherTasks.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/golog/19016-01-19.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/golog/golog.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/golog/log_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/golog/structDefined.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/logs/info/2020-01-20.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mqservices/mqservices.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vendor/github.com/satori/go.uuid/.travis.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vendor/github.com/satori/go.uuid/LICENSE" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vendor/github.com/satori/go.uuid/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vendor/github.com/satori/go.uuid/codec.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vendor/github.com/satori/go.uuid/generator.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vendor/github.com/satori/go.uuid/sql.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vendor/github.com/satori/go.uuid/uuid.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vendor/github.com/streadway/amqp/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vendor/github.com/streadway/amqp/.travis.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vendor/github.com/streadway/amqp/CONTRIBUTING.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vendor/github.com/streadway/amqp/LICENSE" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vendor/github.com/streadway/amqp/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vendor/github.com/streadway/amqp/allocator.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vendor/github.com/streadway/amqp/auth.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vendor/github.com/streadway/amqp/certs.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vendor/github.com/streadway/amqp/channel.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vendor/github.com/streadway/amqp/confirms.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vendor/github.com/streadway/amqp/connection.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vendor/github.com/streadway/amqp/consumers.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vendor/github.com/streadway/amqp/delivery.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vendor/github.com/streadway/amqp/doc.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vendor/github.com/streadway/amqp/fuzz.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vendor/github.com/streadway/amqp/gen.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vendor/github.com/streadway/amqp/go.mod" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vendor/github.com/streadway/amqp/pre-commit" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vendor/github.com/streadway/amqp/read.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vendor/github.com/streadway/amqp/return.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vendor/github.com/streadway/amqp/spec091.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vendor/github.com/streadway/amqp/types.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vendor/github.com/streadway/amqp/uri.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vendor/github.com/streadway/amqp/write.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vendor/modules.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/main_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/queue/context.go" beforeDir="false" afterPath="$PROJECT_DIR$/queue/context.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/golog/golog.go" beforeDir="false" afterPath="$PROJECT_DIR$/golog/golog.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

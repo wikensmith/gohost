@@ -98,6 +98,9 @@ func (l *Log) PrintAll(level string, msgMap map[string]string, Code int, process
 	// 写入日志
 	l.Logger.Print(string(b))
 }
+func (l *Log) Panic(v interface{}) {
+	l.Logger.Panic(v)
+}
 
 // 只打印本地日志
 func (l *Log) PrintLocal(msg string, level string) {
