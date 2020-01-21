@@ -55,21 +55,44 @@ func (c *Context) GetResultMap() map[string]string {
 // defer capture exceptions. Then Ack queue with key("IsReplyTo") in context.ResultMap
 // if not ack without replayMsg to specify routingKey
 // attention, the value of key("返回数据") and "IsReplyTo"  must be set before ending
+// c.ResultMap["IsReplyTo"] = "y",  replyTo is default
+// c.ResultMap["LogToNet"] = "y",  日志默认打印网络和本地, LogToNet 不包含“y”  可不打印网络日志
 func (c *Context) Defer(l *golog.Log) {
 	var msg string
+	logLevel := "info"
+	logCode := 200
 	// Capture panic
 	if err := recover(); err != nil {
 		msg = "程序异常" + err.(string)
 		c.ResultMap["返回数据"] = msg
+		c.ResultMap["IsReplyTo"] = "y"
+		c.ResultMap["LogToNet"] = "y"
+		logLevel = "error"
+		logCode = 400
 	}
 	//
 	resultStr, err := json.Marshal(c.ResultMap)
 	if err != nil {
 		fmt.Println(err)
+		return
 	}
-	l.PrintLocal(string(resultStr), "info")
+	if _, ok := c.ResultMap["LogToNet"]; !ok {
+		c.ResultMap["LogToNet"] = "y"
+
+	}
+	// 日志默认打印网络和本地, LogToNet 不包含“y”  可不打印网络日志
+	if strings.Contains(c.ResultMap["LogToNet"], "y") {
+		queueInfo := strings.Split(c.QueueObj.RoutingKey, ".")
+		processSage := queueInfo[len(queueInfo)-2]
+		application := queueInfo[len(queueInfo)-1]
+		l.PrintAll(logLevel, c.ResultMap, logCode, processSage, "wiken", application)
+		l.PrintLocal(string(resultStr), logLevel)
+	} else {
+		l.PrintLocal(string(resultStr), logLevel)
+	}
+
 	// if the value of IsReplyTo in context.ResultMap contains "y" or "Y", result will be push to replyTo
-	if strings.Contains(strings.ToLower(c.ResultMap["IsReplyTo"]), "y") {
+	if !strings.Contains(strings.ToLower(c.ResultMap["IsReplyTo"]), "n") {
 		pub := amqp.Publishing{
 			//Headers:         nil,
 			//ContentType:     "",
