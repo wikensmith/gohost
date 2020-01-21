@@ -31,14 +31,13 @@ func (c *Context) Ack(msg amqp.Publishing) string {
 		if string(msg.Body) == "" {
 			return fmt.Sprintf("传入内容为空，无法ack并回传内容至replyTo：%v", c.QueueObj.ReplyTo)
 		}
-		c.NextTo(c.QueueObj.Exchange, c.QueueObj.ReplyTo, msg)
+		return c.NextTo(c.QueueObj.Exchange, c.QueueObj.ReplyTo, msg) + "目的地队列名称:" + c.QueueObj.ReplyTo
 	}
-
 	err := c.QueueObj.Ack(false)
 	if err != nil {
 		fmt.Println("Ack false", err)
 	}
-	return "Ack Success"
+	return "Ack without replayTo Success"
 }
 func (c *Context) Nack() {
 	err := c.QueueObj.Nack(false, false)
@@ -84,22 +83,26 @@ func (c *Context) Defer(l *golog.Log) {
 			Timestamp: time.Time{},
 			Body:      []byte(c.ResultMap["返回数据"]),
 		}
-		c.Ack(pub)
+		msg := c.Ack(pub)
+		fmt.Println(msg)
 		return
 	}
+	msg = c.Ack(amqp.Publishing{})
 
-	fmt.Println(c.Ack(amqp.Publishing{}))
+	fmt.Println(msg)
 }
 
 func (c *Context) Text() []byte {
 	return c.QueueObj.Body
 }
-func (c *Context) NextTo(exchangeName string, routingKey string, msg amqp.Publishing) {
+func (c *Context) NextTo(exchangeName string, routingKey string, msg amqp.Publishing) string {
 	err := c.Channel.Publish(exchangeName, routingKey, false, false, msg)
 	if err != nil {
 		fmt.Println("MQ 消息发送失败")
+		return "MQ 消息发送失败"
 	} else {
 		fmt.Println("MQ 消息发送成功")
+		return "MQ 消息发送成功"
 	}
 }
 
