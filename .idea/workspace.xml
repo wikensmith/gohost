@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dd27594b-c075-444c-b115-b19a9779a4bf" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/structDefined.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/golog/golog.go" beforeDir="false" afterPath="$PROJECT_DIR$/golog/golog.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/queue/context.go" beforeDir="false" afterPath="$PROJECT_DIR$/queue/context.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/serviceprovider.go" beforeDir="false" afterPath="$PROJECT_DIR$/serviceprovider.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,6 +22,13 @@
   <component name="GOROOT" path="D:/program files/go" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="hiddenUrls">
+      <set>
+        <option value="https://github.com/wikensmith/gohost.git" />
+      </set>
+    </option>
   </component>
   <component name="GoLibraries">
     <option name="indexEntireGoPath" value="false" />
@@ -44,7 +53,7 @@
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
     <property name="last_opened_file_path" value="E:/go/src/watchers.xml" />
-    <property name="settings.editor.selected.configurable" value="watcher.settings" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Go" />
   </component>
   <component name="RunManager">
     <configuration name="go build main.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
@@ -96,10 +105,14 @@
       <screen x="0" y="0" width="1600" height="870" />
     </state>
     <state x="262" y="82" key="#Go_Modules_(vgo)/1600.244.1080.1890/0.0.1600.870@0.0.1600.870" timestamp="1579244778071" />
-    <state x="580" y="189" key="FileChooserDialogImpl" timestamp="1579487708160">
+    <state x="394" y="234" key="#com.intellij.ide.actions.ChooseComponentsToExportDialog" timestamp="1579591824651">
       <screen x="0" y="0" width="1600" height="870" />
     </state>
-    <state x="580" y="189" key="FileChooserDialogImpl/1600.244.1080.1890/0.0.1600.870@0.0.1600.870" timestamp="1579487708160" />
+    <state x="394" y="234" key="#com.intellij.ide.actions.ChooseComponentsToExportDialog/1600.244.1080.1890/0.0.1600.870@0.0.1600.870" timestamp="1579591824651" />
+    <state x="378" y="156" key="FileChooserDialogImpl" timestamp="1579591821664">
+      <screen x="0" y="0" width="1600" height="870" />
+    </state>
+    <state x="378" y="156" key="FileChooserDialogImpl/1600.244.1080.1890/0.0.1600.870@0.0.1600.870" timestamp="1579591821664" />
     <state width="1556" height="293" key="GridCell.Tab.0.bottom" timestamp="1578882838110">
       <screen x="0" y="0" width="1600" height="870" />
     </state>
@@ -116,10 +129,10 @@
       <screen x="0" y="0" width="1600" height="870" />
     </state>
     <state width="1556" height="293" key="GridCell.Tab.0.right/1600.244.1080.1890/0.0.1600.870@0.0.1600.870" timestamp="1578882838109" />
-    <state x="301" y="66" key="SettingsEditor" timestamp="1579487710700">
+    <state x="301" y="54" key="SettingsEditor" timestamp="1579591801144">
       <screen x="0" y="0" width="1600" height="870" />
     </state>
-    <state x="301" y="66" key="SettingsEditor/1600.244.1080.1890/0.0.1600.870@0.0.1600.870" timestamp="1579487710700" />
+    <state x="301" y="54" key="SettingsEditor/1600.244.1080.1890/0.0.1600.870@0.0.1600.870" timestamp="1579591801144" />
     <state x="392" y="167" key="Vcs.Push.Dialog.v2" timestamp="1579486771337">
       <screen x="0" y="0" width="1600" height="870" />
     </state>
@@ -128,10 +141,11 @@
       <screen x="0" y="0" width="1600" height="870" />
     </state>
     <state x="592" y="351" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1600.244.1080.1890/0.0.1600.870@0.0.1600.870" timestamp="1579485063717" />
-    <state width="600" height="424" key="javadoc.popup" timestamp="1579488106266">
+    <state width="600" height="424" key="javadoc.popup" timestamp="1579593810475">
       <screen x="0" y="0" width="1600" height="870" />
     </state>
-    <state width="600" height="424" key="javadoc.popup/1600.244.1080.1890/0.0.1600.870@0.0.1600.870" timestamp="1579488106266" />
+    <state width="600" height="424" key="javadoc.popup/1600.244.1080.1890/0.0.1600.870@0.0.1600.870" timestamp="1579593810475" />
+    <state width="405" height="922" key="javadoc.popup/1600.244.1080.1890/0.0.1600.870@1600.244.1080.1890" timestamp="1579592216859" />
     <state x="666" y="290" width="250" height="278" key="jetbrains.javascript.buildTools.run-task-popup" timestamp="1579426164328">
       <screen x="0" y="0" width="1600" height="870" />
     </state>

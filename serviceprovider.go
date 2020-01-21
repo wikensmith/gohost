@@ -7,8 +7,8 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/wikensmith/gohost/queue"
 	"github.com/streadway/amqp"
+	"github.com/wikensmith/gohost/queue"
 )
 
 var Workers = make(map[string](func(context queue.Context) string), 2)
