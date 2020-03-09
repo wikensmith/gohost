@@ -26,24 +26,27 @@ type Context struct {
 	ResultMap map[string]string
 }
 
-func (c *Context) Ack(msg amqp.Publishing) string {
-	if c.QueueObj.ReplyTo != "" {
-		if string(msg.Body) == "" {
-			return fmt.Sprintf("传入内容为空，无法ack并回传内容至replyTo：%v", c.QueueObj.ReplyTo)
-		}
-		return c.NextTo(c.QueueObj.Exchange, c.QueueObj.ReplyTo, msg) + "目的地队列名称:" + c.QueueObj.ReplyTo
+func (c *Context) Ack(msg []byte) {
+	replyTo := ""
+	if c.QueueObj.Headers["ReplyTo"] != nil {
+		replyTo = c.QueueObj.Headers["ReplyTo"].(string)
+	}
+
+	if replyTo != "" {
+		info := c.NextTo(c.QueueObj.Exchange, replyTo, msg)
+		fmt.Println(info)
 	}
 	err := c.QueueObj.Ack(false)
 	if err != nil {
 		fmt.Println("Ack false", err)
 	}
-	return "Ack without replayTo Success"
 }
+
 func (c *Context) Nack() {
-	err := c.QueueObj.Nack(false, false)
+	err := c.QueueObj.Nack(false, true)
+
 	if err != nil {
 		fmt.Println("Nack false", err)
-
 	}
 }
 func (c *Context) GetResultMap() map[string]string {
@@ -86,40 +89,34 @@ func (c *Context) Defer(l *golog.Log) {
 		processSage := queueInfo[len(queueInfo)-2]
 		application := queueInfo[len(queueInfo)-1]
 		l.PrintAll(logLevel, c.ResultMap, logCode, processSage, "wiken", application)
-		l.PrintLocal(string(resultStr), logLevel)
 	} else {
-		l.PrintLocal(string(resultStr), logLevel)
+		l.PrintLocal(strings.Replace(string(resultStr), "\r\n", "", -1), logLevel)
 	}
-
-	// if the value of IsReplyTo in context.ResultMap contains "y" or "Y", result will be push to replyTo
-	if !strings.Contains(strings.ToLower(c.ResultMap["IsReplyTo"]), "n") {
-		pub := amqp.Publishing{
-			//Headers:         nil,
-			//ContentType:     "",
-			//ContentEncoding: "",
-			//DeliveryMode:    0,
-			//Priority:        0,
-			//CorrelationId:   "",
-			//ReplyTo:         "",
-			//Expiration:      "",
-			//MessageId:       "",
-			Timestamp: time.Time{},
-			Body:      []byte(c.ResultMap["返回数据"]),
-		}
-		msg := c.Ack(pub)
-		fmt.Println(msg)
-		return
-	}
-	msg = c.Ack(amqp.Publishing{})
-
-	fmt.Println(msg)
 }
 
 func (c *Context) Text() []byte {
 	return c.QueueObj.Body
 }
-func (c *Context) NextTo(exchangeName string, routingKey string, msg amqp.Publishing) string {
-	err := c.Channel.Publish(exchangeName, routingKey, false, false, msg)
+
+func (c *Context) NextTo(exchangeName string, routingKey string, msg []byte) string {
+	returnMsg := amqp.Publishing{
+		Headers:         nil,
+		ContentType:     "application/json",
+		ContentEncoding: "",
+		DeliveryMode:    0,
+		Priority:        0,
+		CorrelationId:   "",
+		ReplyTo:         "",
+		Expiration:      "",
+		MessageId:       "",
+		Timestamp:       time.Time{},
+		Type:            "",
+		UserId:          "",
+		AppId:           "",
+		Body:            msg,
+	}
+
+	err := c.Channel.Publish(exchangeName, routingKey, false, false, returnMsg)
 	if err != nil {
 		fmt.Println("MQ 消息发送失败")
 		return "MQ 消息发送失败"

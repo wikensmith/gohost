@@ -12,6 +12,7 @@ func init() {
 		defer context.Defer(log)
 		context.ResultMap["返回数据"] = "test_value"
 		context.ResultMap["IsReplyTo"] = "y"
+		context.Ack(nil)
 
 		return "end"
 	}
