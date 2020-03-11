@@ -12,6 +12,7 @@ import (
 )
 
 var Workers = make(map[string](func(context queue.Context) string), 2)
+var Prefetch = 3
 
 func connect(queueName string, f func(queue.Context) string) {
 	conn, err := amqp.Dial("amqp://ys:ysmq@192.168.0.100:5672/")
@@ -20,7 +21,7 @@ func connect(queueName string, f func(queue.Context) string) {
 	}
 	defer conn.Close()
 	ch, _ := conn.Channel()
-	err = ch.Qos(3, 0, true)
+	err = ch.Qos(Prefetch, 0, true)
 	if err != nil {
 		fmt.Println("err in ch.Qos", err)
 	}
