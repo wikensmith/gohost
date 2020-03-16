@@ -1,16 +1,22 @@
 package queue
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
-	"strings"
+	"io/ioutil"
+	"net/http"
 	"time"
+
+	"github.com/wikensmith/gohost/structs"
 
 	"github.com/streadway/amqp"
 	"github.com/wikensmith/gohost/golog"
 )
 
 // struct for context in callable function that defined by yourself.
+
+var logCenterUrl = "http://192.168.0.212:8081/log/save"
 
 type Services struct {
 }
@@ -24,6 +30,7 @@ type Context struct {
 	Channel   *amqp.Channel
 	Services  Services
 	ResultMap map[string]string
+	log       *golog.Log
 }
 
 func (c *Context) Ack(msg []byte) {
@@ -33,10 +40,11 @@ func (c *Context) Ack(msg []byte) {
 	}
 
 	if replyTo != "" {
-		info := c.NextTo(c.QueueObj.Exchange, replyTo, msg)
+		info := c.NextTo("system.request", replyTo, msg)
 		fmt.Println(info)
 	}
 	err := c.QueueObj.Ack(false)
+
 	if err != nil {
 		fmt.Println("Ack false", err)
 	}
@@ -55,42 +63,42 @@ func (c *Context) GetResultMap() map[string]string {
 	return c.ResultMap
 }
 
-// defer capture exceptions. Then Ack queue with key("IsReplyTo") in context.ResultMap
-// if not ack without replayMsg to specify routingKey
-// attention, the value of key("返回数据") and "IsReplyTo"  must be set before ending
-// c.ResultMap["IsReplyTo"] = "y",  replyTo is default
-// c.ResultMap["LogToNet"] = "y",  日志默认打印网络和本地, LogToNet 不包含“y”  可不打印网络日志
-func (c *Context) Defer(l *golog.Log) {
-	var msg string
-	logLevel := "info"
-	logCode := 200
-	// Capture panic
-	if err := recover(); err != nil {
-		msg = "程序异常" + err.(string)
-		c.ResultMap["返回数据"] = msg
-		c.ResultMap["IsReplyTo"] = "y"
-		c.ResultMap["LogToNet"] = "y"
-		logLevel = "error"
-		logCode = 400
+// 保存日志至本地文件
+func (c *Context) LocalLog(msg, level string) {
+	c.log.PrintLocal(msg, level)
+}
+func getTogether(a []byte, b []byte) []byte {
+	for _, v := range b {
+		a = append(a, v)
 	}
-	//
-	resultStr, err := json.Marshal(c.ResultMap)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	if _, ok := c.ResultMap["LogToNet"]; !ok {
-		c.ResultMap["LogToNet"] = "y"
+	return a
+}
 
+// 保存日志至日志中心
+func (c *Context) LogCenter(msg *structs.LogCenterStruct) {
+
+	msgByte, err := json.Marshal(msg)
+	if err != nil {
+		c.log.PrintLocal("传入日志中心日志序列化异常:  日志信息: "+"异常信息: "+err.Error(), "error")
 	}
-	// 日志默认打印网络和本地, LogToNet 不包含“y”  可不打印网络日志
-	if strings.Contains(c.ResultMap["LogToNet"], "y") {
-		queueInfo := strings.Split(c.QueueObj.RoutingKey, ".")
-		processSage := queueInfo[len(queueInfo)-2]
-		application := queueInfo[len(queueInfo)-1]
-		l.PrintAll(logLevel, c.ResultMap, logCode, processSage, "wiken", application)
-	} else {
-		l.PrintLocal(strings.Replace(string(resultStr), "\r\n", "", -1), logLevel)
+
+	inputMsg := c.QueueObj.Body
+	logMsg := getTogether(inputMsg, msgByte)
+
+	resp, err := http.Post(logCenterUrl, "application/json", bytes.NewReader(logMsg))
+	if err != nil {
+		c.log.PrintLocal("传入日志中心异常:  日志信息: "+string(logMsg)+"异常信息: "+err.Error(), "error")
+	}
+
+	defer func() {
+		if err := resp.Body.Close(); err != nil {
+			fmt.Println(err)
+		}
+	}()
+
+	respStr, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		c.log.PrintLocal("传入日志中心异常:  日志信息: "+string(respStr)+"异常信息: "+err.Error(), "error")
 	}
 }
 
@@ -128,7 +136,23 @@ func (c *Context) NextTo(exchangeName string, routingKey string, msg []byte) str
 
 // 封装context 构造函数
 func NewContext() *Context {
-	c := new(Context)
+	c := Context{
+		log: new(golog.Log).New(),
+	}
 	c.ResultMap = make(map[string]string)
-	return c
+	return &c
+}
+
+// 日志中心配置
+func logCenterSetting(msg *structs.LogCenterStruct) {
+	settings := golog.LogCenterSettingStruct{
+		Project:     msg.Project,
+		Module:      msg.Module,
+		Unit:        "m",
+		Number:      1,
+		MaxAlarmNum: 100,
+		ExtraField:  "",
+	}
+	http.Post("")
+
 }

@@ -1,0 +1,9 @@
+
+[logCenterSetting]
+url = "http://192.168.0.212:8081/settings/set"
+unit = "m"
+number = 1
+max_alarm_num = 100
+extra_field = "||||"
+
+
