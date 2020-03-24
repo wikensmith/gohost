@@ -15,6 +15,9 @@ var Workers = make(map[string](func(context queue.Context) string), 2)
 var Prefetch = 3
 var URI = "amqp://ys:ysmq@192.168.0.100:5672/"
 
+// context ack 时 replyto 时候使用的交换机名 header
+var ReplyToExchangeName = "system.request"
+
 func connect(queueName string, f func(queue.Context) string) {
 	conn, err := amqp.Dial(URI)
 	if err != nil {

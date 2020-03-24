@@ -8,6 +8,8 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/wikensmith/gohost"
+
 	"github.com/wikensmith/gohost/structs"
 
 	"github.com/streadway/amqp"
@@ -40,7 +42,7 @@ func (c *Context) Ack(msg []byte) {
 	}
 
 	if replyTo != "" {
-		info := c.NextTo("system.request", replyTo, msg)
+		info := c.NextTo(gohost.ReplyToExchangeName, replyTo, msg)
 		fmt.Println(info)
 	}
 	err := c.QueueObj.Ack(false)
