@@ -8,12 +8,9 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/wikensmith/gohost"
-
-	"github.com/wikensmith/gohost/structs"
-
 	"github.com/streadway/amqp"
 	"github.com/wikensmith/gohost/golog"
+	"github.com/wikensmith/gohost/structs"
 )
 
 // struct for context in callable function that defined by yourself.
@@ -27,26 +24,54 @@ func (s *Services) NewLogger() *golog.Log {
 	return new(golog.Log).New()
 }
 
-type Context struct {
-	QueueObj  amqp.Delivery
-	Channel   *amqp.Channel
-	Services  Services
-	ResultMap map[string]string
-	log       *golog.Log
+type logCenter struct {
+	Level  string
+	LogMsg map[string]interface{}
+	Field1 string
+	Field2 string
+	Field3 string
+	Field4 string
+	Field5 string
 }
 
-func (c *Context) Ack(msg []byte) {
-	replyTo := ""
-	if c.QueueObj.Headers["ReplyTo"] != nil {
-		replyTo = c.QueueObj.Headers["ReplyTo"].(string)
+type Context struct {
+	logCenter
+	QueueObj amqp.Delivery
+	Channel  *amqp.Channel
+	Services Services
+	log      *golog.Log
+	Result   []byte
+	StarTime time.Time // 程序开始时间
+}
+
+// Ack 实现amqp的ack 方法并封装了日志消停到context,
+// isReply: bool, true 返回msg至ReplyTo的消息队列中,false 不返回任何消息(其他程序会返回消息到该队列)
+func (c *Context) Ack(level string, msg []byte, IsReply bool, headers map[string]interface{}) {
+	// 设置日志等级及消息
+	m := make(map[string]interface{})
+	_ = json.Unmarshal(c.QueueObj.Body, &m)
+
+	c.Level = level
+	c.LogMsg["b队列名称"] = c.QueueObj.RoutingKey
+	c.LogMsg["c传入数据"] = m
+
+	if msg != nil {
+		c.LogMsg["a返回数据"] = string(msg)
+		c.Level = "error"
+	} else {
+		msg = c.Result
+		c.Level = "info"
 	}
 
-	if replyTo != "" {
-		info := c.NextTo(gohost.ReplyToExchangeName, replyTo, msg)
+	// 如果有replyTo 和 并且需要返回消息,调用NextTo
+	replyTo := c.QueueObj.Headers["replyTo"]
+	if replyTo != nil && IsReply == true {
+		ExchangeName := c.QueueObj.Headers["exchangeName"].(string)
+		info := c.NextTo(ExchangeName, replyTo.(string), msg, headers)
 		fmt.Println(info)
 	}
-	err := c.QueueObj.Ack(false)
 
+	err := c.QueueObj.Ack(false)
 	if err != nil {
 		fmt.Println("Ack false", err)
 	}
@@ -59,37 +84,18 @@ func (c *Context) Nack() {
 		fmt.Println("Nack false", err)
 	}
 }
-func (c *Context) GetResultMap() map[string]string {
-	c.ResultMap["队列名称"] = c.QueueObj.RoutingKey
-	c.ResultMap["队列传入数据"] = string(c.QueueObj.Body)
-	return c.ResultMap
-}
 
 // 保存日志至本地文件
 func (c *Context) LocalLog(msg, level string) {
 	c.log.PrintLocal(msg, level)
 }
-func getTogether(a []byte, b []byte) []byte {
-	for _, v := range b {
-		a = append(a, v)
-	}
-	return a
-}
 
 // 保存日志至日志中心
 func (c *Context) LogCenter(msg *structs.LogCenterStruct) {
-
-	msgByte, err := json.Marshal(msg)
+	msgByte, _ := json.Marshal(msg)
+	resp, err := http.Post(logCenterUrl, "application/json", bytes.NewReader(msgByte))
 	if err != nil {
-		c.log.PrintLocal("传入日志中心日志序列化异常:  日志信息: "+"异常信息: "+err.Error(), "error")
-	}
-
-	inputMsg := c.QueueObj.Body
-	logMsg := getTogether(inputMsg, msgByte)
-
-	resp, err := http.Post(logCenterUrl, "application/json", bytes.NewReader(logMsg))
-	if err != nil {
-		c.log.PrintLocal("传入日志中心异常:  日志信息: "+string(logMsg)+"异常信息: "+err.Error(), "error")
+		c.log.PrintLocal("传入日志中心异常:  日志信息: "+string(msgByte)+"异常信息: "+err.Error(), "error")
 	}
 
 	defer func() {
@@ -108,9 +114,9 @@ func (c *Context) Text() []byte {
 	return c.QueueObj.Body
 }
 
-func (c *Context) NextTo(exchangeName string, routingKey string, msg []byte) string {
+func (c *Context) NextTo(exchangeName string, routingKey string, msg []byte, headers map[string]interface{}) string {
 	returnMsg := amqp.Publishing{
-		Headers:         nil,
+		Headers:         headers,
 		ContentType:     "application/json",
 		ContentEncoding: "",
 		DeliveryMode:    0,
@@ -128,12 +134,17 @@ func (c *Context) NextTo(exchangeName string, routingKey string, msg []byte) str
 
 	err := c.Channel.Publish(exchangeName, routingKey, false, false, returnMsg)
 	if err != nil {
-		fmt.Println("MQ 消息发送失败")
+		//fmt.Println("MQ 消息发送失败")
 		return "MQ 消息发送失败"
 	} else {
-		fmt.Println("MQ 消息发送成功")
+		//fmt.Println("MQ 消息发送成功")
 		return "MQ 消息发送成功"
 	}
+}
+
+// GetElapsedTime 获取耗时
+func (c *Context) GetElapsedTime() int64 {
+	return time.Now().Sub(c.StarTime).Microseconds()
 }
 
 // 封装context 构造函数
@@ -141,20 +152,7 @@ func NewContext() *Context {
 	c := Context{
 		log: new(golog.Log).New(),
 	}
-	c.ResultMap = make(map[string]string)
+	c.LogMsg = make(map[string]interface{})
+	c.StarTime = time.Now()
 	return &c
-}
-
-// 日志中心配置
-func logCenterSetting(msg *structs.LogCenterStruct) {
-	settings := golog.LogCenterSettingStruct{
-		Project:     msg.Project,
-		Module:      msg.Module,
-		Unit:        "m",
-		Number:      1,
-		MaxAlarmNum: 100,
-		ExtraField:  "",
-	}
-	http.Post("")
-
 }

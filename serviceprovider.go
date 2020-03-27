@@ -11,25 +11,22 @@ import (
 	"github.com/wikensmith/gohost/queue"
 )
 
-var Workers = make(map[string](func(context queue.Context) string), 2)
+var Workers = make(map[string](func(context queue.Context)), 0)
 var Prefetch = 3
 var URI = "amqp://ys:ysmq@192.168.0.100:5672/"
 
-// context ack 时 replyto 时候使用的交换机名 header
-var ReplyToExchangeName = "system.request"
-
-func connect(queueName string, f func(queue.Context) string) {
+func connect(queueName string, f func(queue.Context)) {
 	conn, err := amqp.Dial(URI)
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer conn.Close()
+	defer func() { _ = conn.Close() }()
 	ch, _ := conn.Channel()
 	err = ch.Qos(Prefetch, 0, true)
 	if err != nil {
 		fmt.Println("err in ch.Qos", err)
 	}
-	defer ch.Close()
+	defer func() { _ = ch.Close() }()
 	fmt.Println(queueName)
 	msgChan, _ := ch.Consume(
 		queueName,
@@ -47,9 +44,9 @@ func connect(queueName string, f func(queue.Context) string) {
 	}
 }
 
-func Share(worker1 string, worker2 string) {
-	Workers[worker1] = Workers[worker2]
-}
+//func Share(worker1 string, worker2 string) {
+//	Workers[worker1] = Workers[worker2]
+//}
 func forever() chan struct{} {
 	ch := make(chan struct{})
 
@@ -64,7 +61,6 @@ func forever() chan struct{} {
 
 func Start() {
 	for queueName, f := range Workers {
-		fmt.Println("sadsafgdsffgds")
 		go connect(queueName, f)
 	}
 	<-forever()
