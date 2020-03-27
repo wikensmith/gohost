@@ -44,33 +44,8 @@ type Context struct {
 	StarTime time.Time // 程序开始时间
 }
 
-// Ack 实现amqp的ack 方法并封装了日志消停到context,
-// isReply: bool, true 返回msg至ReplyTo的消息队列中,false 不返回任何消息(其他程序会返回消息到该队列)
-func (c *Context) Ack(level string, msg []byte, IsReply bool, headers map[string]interface{}) {
-	// 设置日志等级及消息
-	m := make(map[string]interface{})
-	_ = json.Unmarshal(c.QueueObj.Body, &m)
-
-	c.Level = level
-	c.LogMsg["b队列名称"] = c.QueueObj.RoutingKey
-	c.LogMsg["c传入数据"] = m
-
-	if msg != nil {
-		c.LogMsg["a返回数据"] = string(msg)
-		c.Level = "error"
-	} else {
-		msg = c.Result
-		c.Level = "info"
-	}
-
-	// 如果有replyTo 和 并且需要返回消息,调用NextTo
-	replyTo := c.QueueObj.Headers["replyTo"]
-	if replyTo != nil && IsReply == true {
-		ExchangeName := c.QueueObj.Headers["exchangeName"].(string)
-		info := c.NextTo(ExchangeName, replyTo.(string), msg, headers)
-		fmt.Println(info)
-	}
-
+// Ack 实现amqp的ack 方法并封装了日志消停到context
+func (c *Context) Ack() {
 	err := c.QueueObj.Ack(false)
 	if err != nil {
 		fmt.Println("Ack false", err)
