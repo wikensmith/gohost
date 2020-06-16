@@ -15,19 +15,24 @@ var Workers = make(map[string](func(context queue.Context)), 0)
 var Prefetch = 3
 var URI = "amqp://ys:ysmq@192.168.0.100:5672/"
 
-func connect(queueName string, f func(queue.Context)) {
+func GetConnection() *amqp.Connection {
 	conn, err := amqp.Dial(URI)
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer func() { _ = conn.Close() }()
+	return conn
+}
+
+func connect(queueName string, f func(queue.Context)) {
+	var conn *amqp.Connection
+	conn = GetConnection()
+	defer conn.Close()
+
 	ch, _ := conn.Channel()
-	err = ch.Qos(Prefetch, 0, true)
-	if err != nil {
-		fmt.Println("err in ch.Qos", err)
+	if err := ch.Qos(Prefetch, 0, true); err != nil {
+		fmt.Println("error in ch.Qos():, error is :", err.Error())
 	}
-	defer func() { _ = ch.Close() }()
-	fmt.Println(queueName)
+	fmt.Println("队列名称: ", queueName)
 	msgChan, _ := ch.Consume(
 		queueName,
 		"goHost",
@@ -37,9 +42,13 @@ func connect(queueName string, f func(queue.Context)) {
 		false,
 		nil)
 	for msg := range msgChan {
+		if conn.IsClosed() {
+			conn = GetConnection()
+		}
 		context := queue.NewContext()
 		context.QueueObj = msg
 		context.Channel = ch
+		context.Connection = conn
 		go f(*context)
 	}
 }

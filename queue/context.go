@@ -36,12 +36,13 @@ type logCenter struct {
 
 type Context struct {
 	logCenter
-	QueueObj amqp.Delivery
-	Channel  *amqp.Channel
-	Services Services
-	log      *golog.Log
-	Result   []byte
-	StarTime time.Time // 程序开始时间
+	QueueObj   amqp.Delivery
+	Channel    *amqp.Channel
+	Connection *amqp.Connection
+	Services   Services
+	log        *golog.Log
+	Result     []byte
+	StarTime   time.Time // 程序开始时间
 }
 
 // Ack 实现amqp的ack 方法并封装了日志消停到context
