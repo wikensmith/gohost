@@ -3,9 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="dd27594b-c075-444c-b115-b19a9779a4bf" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/main_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/queue/context.go" beforeDir="false" afterPath="$PROJECT_DIR$/queue/context.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/serviceprovider.go" beforeDir="false" afterPath="$PROJECT_DIR$/serviceprovider.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/modules.txt" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/modules.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,7 +17,7 @@
       </list>
     </option>
   </component>
-  <component name="GOROOT" path="D:/program files/go" />
+  <component name="GOROOT" path="D:\Go" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -57,7 +55,7 @@
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
     <property name="go.vendoring.notification.had.been.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="watcher.settings" />
+    <property name="settings.editor.selected.configurable" value="go.vgo" />
   </component>
   <component name="RunManager" selected="Go Test.TestUse in github.com/wikensmith/gohost (1)">
     <configuration name="TestUse in github.com/wikensmith/gohost (1)" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
@@ -152,17 +150,14 @@
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
-    <proxy>direct</proxy>
+    <vendoring-mode>true</vendoring-mode>
+    <proxy>https://goroxy.io,direct</proxy>
   </component>
   <component name="WindowStateProjectService">
-    <state x="262" y="82" key="#Go_Modules_(vgo)" timestamp="1579244778071">
-      <screen x="0" y="0" width="1600" height="870" />
+    <state x="2232" y="88" key="#GOROOT" timestamp="1592446518134">
+      <screen x="1920" y="0" width="1440" height="860" />
     </state>
-    <state x="262" y="82" key="#Go_Modules_(vgo)/1600.244.1080.1890/0.0.1600.870@0.0.1600.870" timestamp="1579244778071" />
-    <state x="394" y="234" key="#com.intellij.ide.actions.ChooseComponentsToExportDialog" timestamp="1579591824651">
-      <screen x="0" y="0" width="1600" height="870" />
-    </state>
-    <state x="394" y="234" key="#com.intellij.ide.actions.ChooseComponentsToExportDialog/1600.244.1080.1890/0.0.1600.870@0.0.1600.870" timestamp="1579591824651" />
+    <state x="2232" y="88" key="#GOROOT/0.0.1920.1040/1920.0.1440.860@1920.0.1440.860" timestamp="1592446518134" />
     <state x="246" y="126" key="FileChooserDialogImpl" timestamp="1584406048173">
       <screen x="0" y="0" width="1600" height="870" />
     </state>
@@ -224,33 +219,17 @@
     <state width="1876" height="141" key="GridCell.Tab.1.right/0.0.1920.1050/1920.0.1920.1080@1920.0.1920.1080" timestamp="1585024820281" />
     <state width="1876" height="141" key="GridCell.Tab.1.right/0.0.1920.1050@0.0.1920.1050" timestamp="1585356220648" />
     <state width="1556" height="452" key="GridCell.Tab.1.right/1600.244.1080.1890/0.0.1600.870@0.0.1600.870" timestamp="1584094412528" />
-    <state x="301" y="54" key="SettingsEditor" timestamp="1584094859861">
-      <screen x="0" y="0" width="1600" height="870" />
+    <state x="2191" y="53" key="SettingsEditor" timestamp="1592446548628">
+      <screen x="1920" y="0" width="1440" height="860" />
     </state>
+    <state x="2191" y="53" key="SettingsEditor/0.0.1920.1040/1920.0.1440.860@1920.0.1440.860" timestamp="1592446548628" />
     <state x="301" y="54" key="SettingsEditor/1600.244.1080.1890/0.0.1600.870@0.0.1600.870" timestamp="1584094859861" />
-    <state x="392" y="167" key="Vcs.Push.Dialog.v2" timestamp="1579486771337">
-      <screen x="0" y="0" width="1600" height="870" />
-    </state>
-    <state x="392" y="167" key="Vcs.Push.Dialog.v2/1600.244.1080.1890/0.0.1600.870@0.0.1600.870" timestamp="1579486771337" />
-    <state x="592" y="351" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1579485063717">
-      <screen x="0" y="0" width="1600" height="870" />
-    </state>
-    <state x="592" y="351" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1600.244.1080.1890/0.0.1600.870@0.0.1600.870" timestamp="1579485063717" />
     <state width="720" height="512" key="javadoc.popup" timestamp="1585647600001">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state width="720" height="512" key="javadoc.popup/0.0.1920.1050/1920.0.1920.1050@1920.0.1920.1050" timestamp="1585130781462" />
     <state width="720" height="512" key="javadoc.popup/0.0.1920.1050/1920.0.1920.1080@0.0.1920.1050" timestamp="1585647600001" />
     <state width="600" height="424" key="javadoc.popup/1600.244.1080.1890/0.0.1600.870@0.0.1600.870" timestamp="1584078163899" />
-    <state width="405" height="922" key="javadoc.popup/1600.244.1080.1890/0.0.1600.870@1600.244.1080.1890" timestamp="1583748318214" />
-    <state x="666" y="290" width="250" height="278" key="jetbrains.javascript.buildTools.run-task-popup" timestamp="1579426164328">
-      <screen x="0" y="0" width="1600" height="870" />
-    </state>
-    <state x="666" y="290" width="250" height="278" key="jetbrains.javascript.buildTools.run-task-popup/1600.244.1080.1890/0.0.1600.870@0.0.1600.870" timestamp="1579426164328" />
-    <state x="463" y="182" width="672" height="678" key="search.everywhere.popup" timestamp="1579483771568">
-      <screen x="0" y="0" width="1600" height="870" />
-    </state>
-    <state x="463" y="182" width="672" height="678" key="search.everywhere.popup/1600.244.1080.1890/0.0.1600.870@0.0.1600.870" timestamp="1579483771568" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
