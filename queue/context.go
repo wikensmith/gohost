@@ -26,13 +26,7 @@ func (s *Services) NewLogger() *golog.Log {
 }
 
 type logCenter struct {
-	Level  string
 	LogMsg map[string]interface{}
-	Field1 string
-	Field2 string
-	Field3 string
-	Field4 string
-	Field5 string
 }
 
 type Context struct {
