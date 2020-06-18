@@ -2,25 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dd27594b-c075-444c-b115-b19a9779a4bf" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/vendor/github.com/BurntSushi/toml/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vendor/github.com/BurntSushi/toml/.travis.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vendor/github.com/BurntSushi/toml/COMPATIBLE" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vendor/github.com/BurntSushi/toml/COPYING" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vendor/github.com/BurntSushi/toml/Makefile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vendor/github.com/BurntSushi/toml/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vendor/github.com/BurntSushi/toml/decode.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vendor/github.com/BurntSushi/toml/decode_meta.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vendor/github.com/BurntSushi/toml/doc.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vendor/github.com/BurntSushi/toml/encode.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vendor/github.com/BurntSushi/toml/encoding_types.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vendor/github.com/BurntSushi/toml/encoding_types_1.1.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vendor/github.com/BurntSushi/toml/lex.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vendor/github.com/BurntSushi/toml/parse.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vendor/github.com/BurntSushi/toml/session.vim" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vendor/github.com/BurntSushi/toml/type_check.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vendor/github.com/BurntSushi/toml/type_fields.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/watcherTasks.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/watcherTasks.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/modules.txt" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/modules.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/main_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/queue/context.go" beforeDir="false" afterPath="$PROJECT_DIR$/queue/context.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/structs/logCenterStruct.go" beforeDir="false" afterPath="$PROJECT_DIR$/structs/logCenterStruct.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -247,26 +233,5 @@
     <state width="720" height="512" key="javadoc.popup/0.0.1920.1050/1920.0.1920.1050@1920.0.1920.1050" timestamp="1585130781462" />
     <state width="720" height="512" key="javadoc.popup/0.0.1920.1050/1920.0.1920.1080@0.0.1920.1050" timestamp="1585647600001" />
     <state width="600" height="424" key="javadoc.popup/1600.244.1080.1890/0.0.1600.870@0.0.1600.870" timestamp="1584078163899" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/queue/context.go</url>
-          <line>50</line>
-          <option name="timeStamp" value="23" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/main_test.go</url>
-          <line>18</line>
-          <option name="timeStamp" value="24" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/main_test.go</url>
-          <line>20</line>
-          <option name="timeStamp" value="25" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

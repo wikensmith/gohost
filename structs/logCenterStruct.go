@@ -2,7 +2,7 @@ package structs
 
 // 发往日志中心的信息结构体
 type LogCenterStruct struct {
-	Project string `json:"project"binding:"required"`
+	Project string `json:"project" binding:"required"`
 	Module  string `json:"module" binding:"required"`
 	Level   string `json:"level"`
 	User    string `json:"user"`
