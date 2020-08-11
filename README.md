@@ -24,46 +24,38 @@ import (
 	"github.com/wikensmith/gohost"
 	"github.com/wikensmith/gohost/queue"
 )
-func myFunc(c *queue.Context){    
-    
-    
-    
-}
-
 
 func InitMQ(){
-    gohost.Prefetch = c.GetConfig().RabbitMq.Prefetch
-    gohost.Workers[c.GetConfig().RabbitMq.QueueName] = func(context queue.Context) string{  
-        // 显示调用写入日志, 因为project, module等需要按项目需要传入
-        defer func() {
-			msgB, _ := json.Marshal(context.LogMsg)
-			// 发送消息到日志中心
-			context.LogCenter(&HostStructs.LogCenterStruct{
-				Project: "wikenTest",  // 日志项目名
-				Module:  "test",  // 日志模块名
-				User:    "7921",  // 工号
-				Level:   context.Level,  // 日志等级
-				Message: string(msgB),  
-				Time:    time.Now().Format("2006-01-02T15:04:05+08:00"),  // 传入本地时间
-                Field1:  context.Field1, // 示例:平台订单号
-                Field2:  context.Field2, // 示例:是否自愿}
-                Field3:  context.Field3, // 示例:平台退票单号
-                Field4:  context.Field4, // 示例:渠道名称
-                Field5:  context.Field5, // 示例:队列名称
-			})
-		}()
-        myfunc(&context)
-        
-        if xx {
-            context.ack("xxx异常", false)
-        }
-        context.Ack(nil,true)
-        return ""
-    }
-    
-    
+    Params.Prefetch = 1
+	Workers["YS.机票.国内.支付.wiken.DEBUG"] = func(context queue.Context) {
+		// 日志使用
 
+		context.Log.AddField(0, "Field1_value") // 设置Field 1 的值
+		context.Log.AddField(4, "Field4_value") // 设置Field5 的值
+		context.Log.Print("test log msg")
+		context.Log.Printf("test log msg %s", "just test")
+		context.Log.PrintReturn("return msg") // context body 已经传入日志， 不需要额外传入
+		context.Log.Level("info")
+
+		//  获取队列body
+		body := context.QueueObj.Body // []byte
+		context.Set("key1", "aaa")
+		aaa, ok := context.Get("key1")
+		fmt.Println(aaa)
+		if !ok {
+			context.Log.Level("error") // 传入日志等级 默认为error
+			context.Log.Printf("error in Get, error: [%s]", "该值不存在")
+		}
+
+		// 将body传入指定队列
+		info := context.NextTo("YS.机票.询价", "YS.机票.国内.询价.wiken.DEBUG", body, nil)
+		fmt.Println("info:", info)
+
+		//context.Nack() //
+		context.Ack() // Ack 队列
+	}
 }
+
 func (main){
     gohost.Start()  // 开始项目
 }

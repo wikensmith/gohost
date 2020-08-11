@@ -2,9 +2,8 @@ package gohost
 
 import (
 	"fmt"
-	"testing"
-
 	"github.com/wikensmith/gohost/queue"
+	"testing"
 )
 
 func init() {
