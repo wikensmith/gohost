@@ -2,6 +2,7 @@ package gohost
 
 import (
 	"fmt"
+	"github.com/wikensmith/gohost/structs"
 	"log"
 	"os"
 	"os/signal"
@@ -12,11 +13,22 @@ import (
 )
 
 var Workers = make(map[string](func(context queue.Context)), 0)
-var Prefetch = 3
-var URI = "amqp://ys:ysmq@192.168.0.100:5672/"
+
+//var Prefetch = 3
+//var URI = "amqp://ys:ysmq@192.168.0.100:5672/"
+//var Consumer = "goHost" // 队列消费者名称
+var Params = &structs.Param{
+	Prefetch: 3,
+	Consumer: "gohost",
+	MqURI:    "amqp://ys:ysmq@192.168.0.100:5672/", // mq 地址
+	Project:  "TestCenter",                         // 日志模块名称
+	Module:   "test",
+	User:     "7921",
+	LogURI:   "http://log.ys.com/log/save", // 日志中心地址
+}
 
 func GetConnection() *amqp.Connection {
-	conn, err := amqp.Dial(URI)
+	conn, err := amqp.Dial(Params.MqURI)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -29,13 +41,13 @@ func connect(queueName string, f func(queue.Context)) {
 	defer conn.Close()
 
 	ch, _ := conn.Channel()
-	if err := ch.Qos(Prefetch, 0, true); err != nil {
+	if err := ch.Qos(Params.Prefetch, 0, true); err != nil {
 		fmt.Println("error in ch.Qos():, error is :", err.Error())
 	}
 	fmt.Println("队列名称: ", queueName)
 	msgChan, _ := ch.Consume(
 		queueName,
-		"goHost",
+		Params.Consumer,
 		false,
 		false,
 		false,
@@ -49,6 +61,11 @@ func connect(queueName string, f func(queue.Context)) {
 		context.QueueObj = msg
 		context.Channel = ch
 		context.Connection = conn
+		context.Log.PrintInput(string(msg.Body))
+		context.Log.Project = Params.Project
+		context.Log.Module = Params.Module
+		context.Log.User = Params.User
+		context.Log.LogURL = Params.LogURI
 		go f(*context)
 	}
 }

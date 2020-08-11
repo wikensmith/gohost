@@ -14,3 +14,13 @@ type LogCenterStruct struct {
 	Field4  string `json:"field4"`
 	Field5  string `json:"field5"`
 }
+
+type Param struct {
+	Prefetch int    //
+	Consumer string //
+	MqURI    string //
+	Project  string
+	Module   string
+	User     string
+	LogURI   string
+}

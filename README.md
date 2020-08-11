@@ -1,4 +1,4 @@
-1. 接收YATP消息
+## 1. 接收YATP消息
 YATP向队列推送消息的时候如使用swagger 的 /api/MQ/PushMessage 方法时,推送消息格式如下:
 ````
 {
@@ -16,23 +16,16 @@ YATP向队列推送消息的时候如使用swagger 的 /api/MQ/PushMessage 方�
   "executionTime": "2020-03-24T02:01:26.187Z"  // 时间戳
 }
 ```
-2. gohost 使用示例
+
+### 2. gohost 使用示例
+
 ```go
 import (
 	"github.com/wikensmith/gohost"
 	"github.com/wikensmith/gohost/queue"
 )
 func myFunc(c *queue.Context){    
-    defer func(){}{
-        // 返回结果类型为interface{}, 
-        // 写入数据格式有
-        // c.LogMsg["传入数据"] = "" 
-        // c.LogMsg["队列名称"] = "" 这两个值在gohost中已经内部赋值 
-        c.LogMsg["返回数据"] = make(map[string]string{
-            "message": "return_message
-        })
-        c.Level = "info"                
-    }
+    
     
     
 }

@@ -1,22 +1,18 @@
 package queue
 
 import (
-	"bytes"
-	"encoding/json"
 	"fmt"
-	"io/ioutil"
-	"net/http"
 	"sync"
 	"time"
 
 	"github.com/streadway/amqp"
 	"github.com/wikensmith/gohost/golog"
-	"github.com/wikensmith/gohost/structs"
+	"github.com/wikensmith/toLogCenter"
 )
 
 // struct for context in callable function that defined by yourself.
 
-var logCenterUrl = "http://192.168.0.212:8081/log/save"
+//var logCenterUrl = "http://192.168.0.212:8081/log/save"
 
 type Services struct {
 }
@@ -25,21 +21,21 @@ func (s *Services) NewLogger() *golog.Log {
 	return new(golog.Log).New()
 }
 
-type logCenter struct {
-	LogMsg map[string]interface{}
-}
-
 type Context struct {
-	logCenter
 	KeysMutex  *sync.RWMutex
 	QueueObj   amqp.Delivery
 	Channel    *amqp.Channel
 	Connection *amqp.Connection
 	Services   Services
-	log        *golog.Log
+	Log        *toLogCenter.Logger
 	Result     []byte
 	StarTime   time.Time              // 程序开始时间
 	Keys       map[string]interface{} // 属性
+}
+
+// 获取耗时, 返回ms
+func (c *Context) ElapsedTime() int64 {
+	return time.Since(c.StarTime).Milliseconds()
 }
 
 /************************************/
@@ -173,6 +169,7 @@ func (c *Context) Ack() {
 	if err != nil {
 		fmt.Println("Ack false", err)
 	}
+	c.Log.Send()
 }
 
 func (c *Context) Nack() {
@@ -181,32 +178,33 @@ func (c *Context) Nack() {
 	if err != nil {
 		fmt.Println("Nack false", err)
 	}
+	c.Log.Send()
 }
 
 // 保存日志至本地文件
-func (c *Context) LocalLog(msg, level string) {
-	c.log.PrintLocal(msg, level)
-}
+//func (c *Context) LocalLog(msg, level string) {
+//	c.log.PrintLocal(msg, level)
+//}
 
-// 保存日志至日志中心
-func (c *Context) LogCenter(msg *structs.LogCenterStruct) {
-	msgByte, _ := json.Marshal(msg)
-	resp, err := http.Post(logCenterUrl, "application/json", bytes.NewReader(msgByte))
-	if err != nil {
-		c.log.PrintLocal("传入日志中心异常:  日志信息: "+string(msgByte)+"异常信息: "+err.Error(), "error")
-	}
-
-	defer func() {
-		if err := resp.Body.Close(); err != nil {
-			fmt.Println(err)
-		}
-	}()
-
-	respStr, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		c.log.PrintLocal("传入日志中心异常:  日志信息: "+string(respStr)+"异常信息: "+err.Error(), "error")
-	}
-}
+//// 保存日志至日志中心
+//func (c *Context) LogCenter(msg *structs.LogCenterStruct) {
+//	msgByte, _ := json.Marshal(msg)
+//	resp, err := http.Post(logCenterUrl, "application/json", bytes.NewReader(msgByte))
+//	if err != nil {
+//		c.log.PrintLocal("传入日志中心异常:  日志信息: "+string(msgByte)+"异常信息: "+err.Error(), "error")
+//	}
+//
+//	defer func() {
+//		if err := resp.Body.Close(); err != nil {
+//			fmt.Println(err)
+//		}
+//	}()
+//
+//	respStr, err := ioutil.ReadAll(resp.Body)
+//	if err != nil {
+//		c.log.PrintLocal("传入日志中心异常:  日志信息: "+string(respStr)+"异常信息: "+err.Error(), "error")
+//	}
+//}
 
 func (c *Context) Text() []byte {
 	return c.QueueObj.Body
@@ -247,10 +245,8 @@ func (c *Context) GetElapsedTime() int64 {
 
 // 封装context 构造函数
 func NewContext() *Context {
-	c := Context{
-		log: new(golog.Log).New(),
-	}
-	c.LogMsg = make(map[string]interface{})
+	c := Context{}
+	c.Log = new(toLogCenter.Logger).New()
 	c.Keys = make(map[string]interface{}, 0)
 	c.StarTime = time.Now()
 	return &c
