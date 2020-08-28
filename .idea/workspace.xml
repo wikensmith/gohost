@@ -2,9 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dd27594b-c075-444c-b115-b19a9779a4bf" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/ys.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/healthy_check.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/main_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/queue/context.go" beforeDir="false" afterPath="$PROJECT_DIR$/context.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/serviceprovider.go" beforeDir="false" afterPath="$PROJECT_DIR$/serviceprovider.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/structs/logCenterStruct.go" beforeDir="false" afterPath="$PROJECT_DIR$/structs/logCenterStruct.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/modules.txt" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/modules.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,10 +62,26 @@
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
     <property name="go.vendoring.notification.had.been.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../my_practise/p10_healthy" />
     <property name="settings.editor.selected.configurable" value="go.vgo" />
   </component>
-  <component name="RunManager" selected="Go Test.TestUse in github.com/wikensmith/gohost (2)">
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\go_projects\gohost" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Go Test.TestUse in github.com/wikensmith/gohost (4)">
+    <configuration name="TestStartAMQPConsume in github.com/wikensmith/gohost" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="gohost" />
+      <working_directory value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="github.com/wikensmith/gohost" />
+      <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/" />
+      <pattern value="^TestStartAMQPConsume$" />
+      <method v="2" />
+    </configuration>
     <configuration name="TestUse in github.com/wikensmith/gohost (1)" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="gohost" />
       <working_directory value="$PROJECT_DIR$" />
@@ -81,7 +104,7 @@
       <pattern value="^TestUse$" />
       <method v="2" />
     </configuration>
-    <configuration name="TestUse in github.com/wikensmith/gohost" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="TestUse in github.com/wikensmith/gohost (3)" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="gohost" />
       <working_directory value="$PROJECT_DIR$" />
       <framework value="gotest" />
@@ -92,33 +115,24 @@
       <pattern value="^TestUse$" />
       <method v="2" />
     </configuration>
-    <configuration name="main_test.go (2)" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="TestUse in github.com/wikensmith/gohost (4)" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="gohost" />
       <working_directory value="$PROJECT_DIR$" />
       <framework value="gotest" />
-      <kind value="FILE" />
+      <kind value="PACKAGE" />
       <package value="github.com/wikensmith/gohost" />
       <directory value="$PROJECT_DIR$/" />
-      <filePath value="$PROJECT_DIR$/main_test.go" />
-      <method v="2" />
-    </configuration>
-    <configuration name="main_test.go (3)" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
-      <module name="gohost" />
-      <working_directory value="$PROJECT_DIR$" />
-      <framework value="gotest" />
-      <kind value="FILE" />
-      <package value="github.com/wikensmith/gohost" />
-      <directory value="$PROJECT_DIR$/" />
-      <filePath value="$PROJECT_DIR$/main_test.go" />
+      <filePath value="$PROJECT_DIR$/" />
+      <pattern value="^TestUse$" />
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Test.TestUse in github.com/wikensmith/gohost (4)" />
+        <item itemvalue="Go Test.TestStartAMQPConsume in github.com/wikensmith/gohost" />
+        <item itemvalue="Go Test.TestUse in github.com/wikensmith/gohost (3)" />
         <item itemvalue="Go Test.TestUse in github.com/wikensmith/gohost (2)" />
         <item itemvalue="Go Test.TestUse in github.com/wikensmith/gohost (1)" />
-        <item itemvalue="Go Test.main_test.go (3)" />
-        <item itemvalue="Go Test.TestUse in github.com/wikensmith/gohost" />
-        <item itemvalue="Go Test.main_test.go (2)" />
       </list>
     </recent_temporary>
   </component>
@@ -160,38 +174,42 @@
       <screen x="1920" y="0" width="1440" height="860" />
     </state>
     <state x="2232" y="88" key="#GOROOT/0.0.1920.1040/1920.0.1440.860@1920.0.1440.860" timestamp="1592446518134" />
-    <state width="1877" height="426" key="GridCell.Tab.0.bottom" timestamp="1597134762023">
+    <state x="460" y="200" key="FileChooserDialogImpl" timestamp="1598584736587">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="426" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1440.860@0.0.1920.1040" timestamp="1597134762023" />
-    <state width="1877" height="426" key="GridCell.Tab.0.center" timestamp="1597134762023">
+    <state x="460" y="200" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1440.860@0.0.1920.1040" timestamp="1598584736587" />
+    <state width="1877" height="175" key="GridCell.Tab.0.bottom" timestamp="1598599039624">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="426" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1440.860@0.0.1920.1040" timestamp="1597134762023" />
-    <state width="1877" height="426" key="GridCell.Tab.0.left" timestamp="1597134762023">
+    <state width="1877" height="175" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1440.860@0.0.1920.1040" timestamp="1598599039624" />
+    <state width="1877" height="175" key="GridCell.Tab.0.center" timestamp="1598599039624">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="426" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1440.860@0.0.1920.1040" timestamp="1597134762023" />
-    <state width="1877" height="426" key="GridCell.Tab.0.right" timestamp="1597134762023">
+    <state width="1877" height="175" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1440.860@0.0.1920.1040" timestamp="1598599039624" />
+    <state width="1877" height="175" key="GridCell.Tab.0.left" timestamp="1598599039624">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="426" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1440.860@0.0.1920.1040" timestamp="1597134762023" />
-    <state width="1877" height="426" key="GridCell.Tab.1.bottom" timestamp="1597134762023">
+    <state width="1877" height="175" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1440.860@0.0.1920.1040" timestamp="1598599039624" />
+    <state width="1877" height="175" key="GridCell.Tab.0.right" timestamp="1598599039624">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="426" key="GridCell.Tab.1.bottom/0.0.1920.1040/1920.0.1440.860@0.0.1920.1040" timestamp="1597134762023" />
-    <state width="1877" height="426" key="GridCell.Tab.1.center" timestamp="1597134762023">
+    <state width="1877" height="175" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1440.860@0.0.1920.1040" timestamp="1598599039624" />
+    <state width="1877" height="175" key="GridCell.Tab.1.bottom" timestamp="1598599039554">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="426" key="GridCell.Tab.1.center/0.0.1920.1040/1920.0.1440.860@0.0.1920.1040" timestamp="1597134762023" />
-    <state width="1877" height="426" key="GridCell.Tab.1.left" timestamp="1597134762023">
+    <state width="1877" height="175" key="GridCell.Tab.1.bottom/0.0.1920.1040/1920.0.1440.860@0.0.1920.1040" timestamp="1598599039554" />
+    <state width="1877" height="175" key="GridCell.Tab.1.center" timestamp="1598599039554">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="426" key="GridCell.Tab.1.left/0.0.1920.1040/1920.0.1440.860@0.0.1920.1040" timestamp="1597134762023" />
-    <state width="1877" height="426" key="GridCell.Tab.1.right" timestamp="1597134762023">
+    <state width="1877" height="175" key="GridCell.Tab.1.center/0.0.1920.1040/1920.0.1440.860@0.0.1920.1040" timestamp="1598599039554" />
+    <state width="1877" height="175" key="GridCell.Tab.1.left" timestamp="1598599039553">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="426" key="GridCell.Tab.1.right/0.0.1920.1040/1920.0.1440.860@0.0.1920.1040" timestamp="1597134762023" />
+    <state width="1877" height="175" key="GridCell.Tab.1.left/0.0.1920.1040/1920.0.1440.860@0.0.1920.1040" timestamp="1598599039553" />
+    <state width="1877" height="175" key="GridCell.Tab.1.right" timestamp="1598599039554">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="175" key="GridCell.Tab.1.right/0.0.1920.1040/1920.0.1440.860@0.0.1920.1040" timestamp="1598599039554" />
     <state x="361" y="64" key="SettingsEditor" timestamp="1597130754272">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -201,9 +219,43 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="968" height="528" key="XDebugger.FullValuePopup/0.0.1920.1040/1920.0.1440.860@0.0.1920.1040" timestamp="1597134650157" />
-    <state width="600" height="424" key="javadoc.popup" timestamp="1597133774794">
+    <state x="2189" y="0" width="733" height="943" maximized="true" key="dock-window-1" timestamp="1598596596381">
+      <screen x="1920" y="0" width="1440" height="860" />
+    </state>
+    <state x="2189" y="0" width="733" height="943" maximized="true" key="dock-window-1/0.0.1920.1040/1920.0.1440.860@0.0.1920.1040" timestamp="1598596596381" />
+    <state x="636" y="258" width="647" height="524" key="find.popup" timestamp="1597384833965">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="600" height="424" key="javadoc.popup/0.0.1920.1040/1920.0.1440.860@0.0.1920.1040" timestamp="1597133774794" />
+    <state x="636" y="258" width="647" height="524" key="find.popup/0.0.1920.1040/1920.0.1440.860@0.0.1920.1040" timestamp="1597384833965" />
+    <state width="600" height="424" key="javadoc.popup" timestamp="1598595086899">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="600" height="424" key="javadoc.popup/0.0.1920.1040/1920.0.1440.860@0.0.1920.1040" timestamp="1598595086899" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/healthy_check.go</url>
+          <line>71</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/healthy_check.go</url>
+          <line>34</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/healthy_check.go</url>
+          <line>32</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/healthy_check.go</url>
+          <line>40</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

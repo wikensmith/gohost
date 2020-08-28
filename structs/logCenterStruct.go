@@ -16,11 +16,12 @@ type LogCenterStruct struct {
 }
 
 type Param struct {
-	Prefetch int    //
-	Consumer string //
-	MqURI    string //
-	Project  string
-	Module   string
-	User     string
-	LogURI   string
+	Prefetch    int    //
+	Consumer    string //
+	MqURI       string //
+	Project     string
+	Module      string
+	User        string
+	LogURI      string
+	HealthyPort string // 健康检查端口地址
 }

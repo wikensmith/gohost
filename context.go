@@ -1,13 +1,12 @@
-package queue
+package gohost
 
 import (
 	"fmt"
-	"sync"
-	"time"
-
 	"github.com/streadway/amqp"
 	"github.com/wikensmith/gohost/golog"
 	"github.com/wikensmith/toLogCenter"
+	"sync"
+	"time"
 )
 
 // struct for context in callable function that defined by yourself.
@@ -22,11 +21,18 @@ func (s *Services) NewLogger() *golog.Log {
 }
 
 type Context struct {
+	*Cxt
+	Conn     *amqp.Connection
+	Delivery <-chan amqp.Delivery
+}
+
+type Cxt struct {
 	KeysMutex  *sync.RWMutex
 	QueueObj   amqp.Delivery
 	Channel    *amqp.Channel
 	Connection *amqp.Connection
 	Services   Services
+	QueueName  string // 监听的队列名称
 	Log        *toLogCenter.Logger
 	Result     []byte
 	StarTime   time.Time              // 程序开始时间
@@ -164,47 +170,34 @@ func (c *Context) GetStringMapStringSlice(key string) (smss map[string][]string)
 }
 
 // Ack 实现amqp的ack 方法并封装了日志消停到context
-func (c *Context) Ack() {
+func (c *Context) Ack(isSendLog ...bool) {
 	err := c.QueueObj.Ack(false)
 	if err != nil {
 		fmt.Println("Ack false", err)
+		//ReConnection(c)
 	}
-	c.Log.Send()
+	if len(isSendLog) != 0 {
+		if isSendLog[0] {
+			c.Log.Send()
+		}
+	}
 }
 
-func (c *Context) Nack() {
-	err := c.QueueObj.Nack(false, true)
+func (c *Context) Nack(isSend ...bool) {
 
+	err := c.QueueObj.Nack(false, true)
 	if err != nil {
 		fmt.Println("Nack false", err)
+		//ReConnection(c)
+		//ReConnection(c)
+
 	}
-	c.Log.Send()
+	if len(isSend) != 0 {
+		if isSend[0] {
+			c.Log.Send()
+		}
+	}
 }
-
-// 保存日志至本地文件
-//func (c *Context) LocalLog(msg, level string) {
-//	c.log.PrintLocal(msg, level)
-//}
-
-//// 保存日志至日志中心
-//func (c *Context) LogCenter(msg *structs.LogCenterStruct) {
-//	msgByte, _ := json.Marshal(msg)
-//	resp, err := http.Post(logCenterUrl, "application/json", bytes.NewReader(msgByte))
-//	if err != nil {
-//		c.log.PrintLocal("传入日志中心异常:  日志信息: "+string(msgByte)+"异常信息: "+err.Error(), "error")
-//	}
-//
-//	defer func() {
-//		if err := resp.Body.Close(); err != nil {
-//			fmt.Println(err)
-//		}
-//	}()
-//
-//	respStr, err := ioutil.ReadAll(resp.Body)
-//	if err != nil {
-//		c.log.PrintLocal("传入日志中心异常:  日志信息: "+string(respStr)+"异常信息: "+err.Error(), "error")
-//	}
-//}
 
 func (c *Context) Text() []byte {
 	return c.QueueObj.Body
@@ -244,8 +237,8 @@ func (c *Context) GetElapsedTime() int64 {
 }
 
 // 封装context 构造函数
-func NewContext() *Context {
-	c := Context{}
+func NewContext() *Cxt {
+	c := Cxt{}
 	c.Log = new(toLogCenter.Logger).New()
 	c.Keys = make(map[string]interface{}, 0)
 	c.StarTime = time.Now()
