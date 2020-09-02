@@ -2,6 +2,7 @@ package gohost
 
 import (
 	"fmt"
+	"github.com/wikensmith/gohost/queue"
 	"github.com/wikensmith/gohost/structs"
 
 	//"github.com/wikensmith/gohost/structs"
@@ -14,7 +15,7 @@ import (
 	"github.com/streadway/amqp"
 )
 
-var Workers = make(map[string](func(context Context)), 0)
+var Workers = make(map[string](func(context queue.Context)), 0)
 
 var conn *amqp.Connection
 
@@ -32,7 +33,7 @@ var Params = &structs.Param{
 	HealthyPort: "9000",
 }
 
-func ReConnection(c *Context) {
+func ReConnection(c *queue.Context) {
 	for {
 		//isClosed := c.Conn.IsClosed()
 		//fmt.Println("是否关闭: ", isClosed)
@@ -82,7 +83,7 @@ func GetMsgChan(conn *amqp.Connection, queueName string) (<-chan amqp.Delivery, 
 		nil)
 }
 
-func connect(queueName string, f func(Context)) {
+func connect(queueName string, f func(queue.Context)) {
 	var err error
 	conn, err = GetConnection()
 	//errChan = conn.NotifyClose(errChan)
@@ -96,12 +97,12 @@ func connect(queueName string, f func(Context)) {
 	if err != nil {
 		log.Fatalf("error in gohost.connect.GetMsgChan, error:[%s]\n", err.Error())
 	}
-	context := Context{
+	context := queue.Context{
 		Conn:     conn,
 		Delivery: msgChan,
 	}
 	for msg := range context.Delivery {
-		context.Cxt = NewContext()
+		context.Cxt = queue.NewContext()
 		context.QueueObj = msg
 		context.QueueName = queueName
 		context.Connection = conn

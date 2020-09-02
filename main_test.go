@@ -2,13 +2,15 @@ package gohost
 
 import (
 	"fmt"
+	"github.com/wikensmith/gohost/queue"
 	"testing"
 	"time"
 )
 
 func init() {
 	Params.Prefetch = 1
-	Workers["YS.机票.国内.支付.wiken.DEBUG"] = func(context Context) {
+	Workers["YS.机票.国内.支付.wiken.DEBUG"] = func(context queue.Context) {
+
 		// 日志使用
 
 		//context.Log.AddField(0, "Field1_value") // 设置Field 1 的值

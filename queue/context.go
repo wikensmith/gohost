@@ -1,17 +1,22 @@
-package gohost
+package queue
 
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
 	"github.com/streadway/amqp"
 	"github.com/wikensmith/gohost/golog"
+	"github.com/wikensmith/gohost/structs"
 	"github.com/wikensmith/toLogCenter"
+	"io/ioutil"
+	"net/http"
 	"sync"
 	"time"
 )
 
 // struct for context in callable function that defined by yourself.
 
-//var logCenterUrl = "http://192.168.0.212:8081/log/save"
+var logCenterUrl = "http://192.168.0.212:8081/log/save"
 
 type Services struct {
 }
@@ -243,4 +248,25 @@ func NewContext() *Cxt {
 	c.Keys = make(map[string]interface{}, 0)
 	c.StarTime = time.Now()
 	return &c
+}
+
+// 保存日志至日志中心
+func (c *Cxt) LogCenter(msg *structs.LogCenterStruct) {
+	msgByte, _ := json.Marshal(msg)
+	resp, err := http.Post(logCenterUrl, "application/json", bytes.NewReader(msgByte))
+	if err != nil {
+		fmt.Printf("error in gohost.context.LogCenter.Post, error: [%s]", err.Error())
+	}
+
+	defer func() {
+		if err := resp.Body.Close(); err != nil {
+			fmt.Println(err)
+		}
+	}()
+
+	respStr, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		fmt.Printf("error in gohost.Context.LogCenter.ReadAll, error: [%s]", err.Error())
+	}
+	fmt.Println(string(respStr))
 }
