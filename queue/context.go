@@ -181,7 +181,8 @@ func (c *Context) Ack(isSendLog ...bool) {
 		fmt.Println("Ack false", err)
 		//ReConnection(c)
 	}
-	if len(isSendLog) != 0 {
+
+	if isSendLog != nil {
 		if isSendLog[0] {
 			c.Log.Send()
 		}
@@ -197,7 +198,7 @@ func (c *Context) Nack(isSend ...bool) {
 		//ReConnection(c)
 
 	}
-	if len(isSend) != 0 {
+	if isSend != nil {
 		if isSend[0] {
 			c.Log.Send()
 		}

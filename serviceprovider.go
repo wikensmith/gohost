@@ -33,31 +33,31 @@ var Params = &structs.Param{
 	HealthyPort: "9000",
 }
 
-func ReConnection(c *queue.Context) {
-	for {
-		//isClosed := c.Conn.IsClosed()
-		//fmt.Println("是否关闭: ", isClosed)
-		if c.Conn != nil {
-			_ = c.Conn.Close()
-		}
-		conn, err := GetConnection()
-		if err != nil {
-			fmt.Printf("连接失败, 原因: %s\n", err.Error())
-		} else {
-			c.Delivery, err = GetMsgChan(c.Conn, c.QueueName)
-			if err != nil {
-				fmt.Printf("连接失败, 原因: %s", err.Error())
-				//log.Fatalf("reconnect error , error: [%s]", err.Error())
-			} else {
-				_ = conn.Close()
-				Start()
-				return
-			}
-		}
-		fmt.Println("连接中... ...")
-		time.Sleep(time.Second)
-	}
-}
+//func ReConnection(c *queue.Context) {
+//	for {
+//		//isClosed := c.Conn.IsClosed()
+//		//fmt.Println("是否关闭: ", isClosed)
+//		if c.Conn != nil {
+//			_ = c.Conn.Close()
+//		}
+//		conn, err := GetConnection()
+//		if err != nil {
+//			fmt.Printf("连接失败, 原因: %s\n", err.Error())
+//		} else {
+//			c.Delivery, channel, err = GetMsgChan(c.Conn, c.QueueName)
+//			if err != nil {
+//				fmt.Printf("连接失败, 原因: %s", err.Error())
+//				//log.Fatalf("reconnect error , error: [%s]", err.Error())
+//			} else {
+//				_ = conn.Close()
+//				Start()
+//				return
+//			}
+//		}
+//		fmt.Println("连接中... ...")
+//		time.Sleep(time.Second)
+//	}
+//}
 
 func GetConnection() (conn *amqp.Connection, err error) {
 	conn, err = amqp.Dial(Params.MqURI)
@@ -66,14 +66,15 @@ func GetConnection() (conn *amqp.Connection, err error) {
 	}
 	return conn, nil
 }
-func GetMsgChan(conn *amqp.Connection, queueName string) (<-chan amqp.Delivery, error) {
+func GetMsgChan(conn *amqp.Connection, queueName string) (<-chan amqp.Delivery, *amqp.Channel, error) {
 	ch, _ := conn.Channel()
 	notifyClose = ch.NotifyClose(errChan)
 	if err := ch.Qos(Params.Prefetch, 0, true); err != nil {
 		fmt.Println("error in ch.Qos():, error is :", err.Error())
 	}
 	fmt.Println("队列名称: ", queueName)
-	return ch.Consume(
+
+	deliveryChan, err := ch.Consume(
 		queueName,
 		Params.Consumer,
 		false,
@@ -81,6 +82,7 @@ func GetMsgChan(conn *amqp.Connection, queueName string) (<-chan amqp.Delivery, 
 		false,
 		false,
 		nil)
+	return deliveryChan, ch, err
 }
 
 func connect(queueName string, f func(queue.Context)) {
@@ -93,7 +95,7 @@ func connect(queueName string, f func(queue.Context)) {
 	}
 	isConnectClosed = false
 	defer conn.Close()
-	msgChan, err := GetMsgChan(conn, queueName)
+	msgChan, channel, err := GetMsgChan(conn, queueName)
 	if err != nil {
 		log.Fatalf("error in gohost.connect.GetMsgChan, error:[%s]\n", err.Error())
 	}
@@ -106,6 +108,7 @@ func connect(queueName string, f func(queue.Context)) {
 		context.QueueObj = msg
 		context.QueueName = queueName
 		context.Connection = conn
+		context.Channel = channel
 		context.Log.PrintInput(string(msg.Body))
 		context.Log.Project = Params.Project
 		context.Log.Module = Params.Module
