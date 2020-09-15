@@ -35,7 +35,11 @@ func init() {
 		fmt.Println(time.Now().Format(time.RFC3339), ":", string(body))
 		time.Sleep(time.Second * 2)
 		context.Nack() //
-		//context.Ack()  // Ack 队列
+		context.Log.Print("adsf", "aa")
+		context.Log.Print("adsf", "bb")
+		context.Log.Print("adsf", "cc")
+
+		context.Ack(true) // Ack 队列
 	}
 }
 

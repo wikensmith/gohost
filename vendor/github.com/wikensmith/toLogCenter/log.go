@@ -37,7 +37,7 @@ var URL = "http://192.168.0.212:8081/log/save"
 
 type Logger struct {
 	lock *sync.Mutex
-	cacheLst [][]interface{} // 日志缓存列表 [[key, *logInfo], [key2, *logInfo]]
+	cacheLst []interface{} // 日志缓存列表 [*logInfo, *logInfo]
 	resultMap map[string]interface{}
 	Project string // 日志中心项目名称
 	Module string  // 日志中心模块名称
@@ -50,7 +50,7 @@ type Logger struct {
 func (l *Logger)New() *Logger {
 	l.lock = new(sync.Mutex)
 	l.Field = make([]interface{}, 5)
-	l.cacheLst = make([][]interface{}, 0)
+	l.cacheLst = make([]interface{}, 0)
 	l.resultMap = make(map[string]interface{}, 0)
 	if l.LogURL == ""{
 		l.LogURL = URL
@@ -92,25 +92,42 @@ func (l *Logger)PrintReturn(content interface{})  {
 
 }
 
-func (l *Logger)print(content interface{})  {
+func (l *Logger)print(content interface{}, key ...string)  {
 	fmt.Printf("%v\n", content)
-	tempStruct := logInfo{
-		Content: content,
-		Func:    l.runFuncName(),
-		Time:    time.Now().Format(time.RFC3339Nano),
+	//tempStruct := logInfo{
+	//	Content: content,
+	//	Func:    l.runFuncName(),
+	//	Time:    time.Now().Format(time.RFC3339Nano),
+	//}
+	myKey := ""
+	if key == nil {
+		myKey = "content"
+	}else{
+		myKey = key[0]
+	}
+	tempInfo := map[string]interface{}{
+		myKey: content,
+		"Func": l.runFuncName(),
+		"Time": time.Now().Format(time.RFC3339Nano),
 	}
 	l.lock.Lock()
-	l.cacheLst = append(l.cacheLst, []interface{}{tempStruct})
+	l.cacheLst = append(l.cacheLst, tempInfo)
 	l.lock.Unlock()
 }
 
 func (l *Logger)Printf(format string, a ...interface{})  {
-	content := fmt.Sprintf(format, a...)
-	l.print(content)
+	count := strings.Count(format, "%")
+	f := format
+	print(count)
+	if count == len(a){
+		l.print(fmt.Sprintf(f, a...))
+	}else{
+		l.print(fmt.Sprintf(f, a[:len(a)-1]...), a[len(a)-1].(string))
+	}
 }
 
-func (l * Logger)Print(content interface{})  {
-	l.print(content)
+func (l * Logger)Print(content interface{}, key ...string)  {
+	l.print(content, key...)
 
 }
 
