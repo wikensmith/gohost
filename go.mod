@@ -12,4 +12,4 @@ require (
 	gopkg.in/check.v1 v1.0.0-20200227125254-8fa46927fb4f // indirect
 )
 
-replace github.com/wikensmith/toLogCenter v0.1.4 => github.com/wikensmith/toLogCenter v0.1.5
+replace github.com/wikensmith/toLogCenter v0.1.4 => github.com/wikensmith/toLogCenter v0.1.7

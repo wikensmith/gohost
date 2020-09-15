@@ -115,6 +115,8 @@ func (l *Logger)print(content interface{}, key ...string)  {
 	l.lock.Unlock()
 }
 
+
+
 func (l *Logger)Printf(format string, a ...interface{})  {
 	count := strings.Count(format, "%")
 	f := format
@@ -126,6 +128,8 @@ func (l *Logger)Printf(format string, a ...interface{})  {
 	}
 }
 
+
+// print news
 func (l * Logger)Print(content interface{}, key ...string)  {
 	l.print(content, key...)
 
