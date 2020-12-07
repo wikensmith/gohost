@@ -50,7 +50,7 @@ func Log() {
 func connection() {
 
 	Params.Prefetch = 1
-	Params.Heartbeat = time.Hour
+
 	Params.IsReConnection = true
 	Workers["YS.机票.国内.支付.wiken.DEBUG"] = func(context queue.Context) {
 		defer func() {
@@ -62,6 +62,12 @@ func connection() {
 			context.Ack(false)
 			fmt.Println("acked")
 		}()
+		p := Params
+		fmt.Println(p)
+		if p.Heartbeat == 0 {
+			fmt.Println("ok")
+		}
+
 		body := string(context.QueueObj.Body)
 		fmt.Println(body)
 		info := context.NextTo("system.request", "YS.机票.国内.退票查询.wiken.DEBUG", []byte("testinfo"), nil)

@@ -65,8 +65,9 @@ func GetConnection() (conn *amqp.Connection, err error) {
 	if err != nil {
 		return nil, err
 	}
-
-	conn.Config.Heartbeat = time.Minute * 5
+	if Params.Heartbeat != 0 {
+		conn.Config.Heartbeat = Params.Heartbeat
+	}
 	return conn, nil
 }
 func GetMsgChan(conn *amqp.Connection, queueName string) (<-chan amqp.Delivery, *amqp.Channel, error) {
@@ -170,5 +171,4 @@ func start() {
 	//}()
 	<-forever()
 	fmt.Println("程序结束")
-
 }
