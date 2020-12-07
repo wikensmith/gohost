@@ -1,11 +1,15 @@
 package gohost
 
 import (
-	"fmt"
 	"github.com/wikensmith/gohost/queue"
 	"testing"
 	"time"
 )
+
+//type persion struct {
+//	Name string
+//	Age int
+//}
 
 func init() {
 	Params.Prefetch = 1
@@ -32,13 +36,11 @@ func init() {
 		//
 		//// 将body传入指定队列
 		//info := context.NextTo("YS.机票.询价", "YS.机票.国内.询价.wiken.DEBUG", body, nil)
-		fmt.Println(time.Now().Format(time.RFC3339), ":", string(body))
+		//fmt.Println(time.Now().Format(time.RFC3339), ":", body)
 		time.Sleep(time.Second * 2)
-		context.Nack() //
+		context.Log.PrintInput(string(body))
+		//context.Nack() //
 		context.Log.Print("adsf", "aa")
-		context.Log.Print("adsf", "bb")
-		context.Log.Print("adsf", "cc")
-
 		context.Ack(true) // Ack 队列
 	}
 }

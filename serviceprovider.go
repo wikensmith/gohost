@@ -109,7 +109,7 @@ func connect(queueName string, f func(queue.Context)) {
 		context.QueueName = queueName
 		context.Connection = conn
 		context.Channel = channel
-		context.Log.PrintInput(string(msg.Body))
+		context.Log.PrintInput(msg.Body)
 		context.Log.Project = Params.Project
 		context.Log.Module = Params.Module
 		context.Log.User = Params.User
