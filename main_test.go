@@ -1,6 +1,7 @@
 package gohost
 
 import (
+	"fmt"
 	"github.com/wikensmith/gohost/queue"
 	"testing"
 	"time"
@@ -11,7 +12,7 @@ import (
 //	Age int
 //}
 
-func init() {
+func Log() {
 	Params.Prefetch = 1
 	Workers["YS.机票.国内.支付.wiken.DEBUG"] = func(context queue.Context) {
 
@@ -45,7 +46,31 @@ func init() {
 	}
 }
 
-func TestUse(t *testing.T) {
-	Start()
+// 测试断线重边和nextTo
+func connection() {
 
+	Params.Prefetch = 1
+	Params.Heartbeat = time.Hour
+	Params.IsReConnection = true
+	Workers["YS.机票.国内.支付.wiken.DEBUG"] = func(context queue.Context) {
+		defer func() {
+			if err := recover(); err != nil {
+				fmt.Println("recover:", err.(string))
+			}
+		}()
+		defer func() {
+			context.Ack(false)
+			fmt.Println("acked")
+		}()
+		body := string(context.QueueObj.Body)
+		fmt.Println(body)
+		info := context.NextTo("system.request", "YS.机票.国内.退票查询.wiken.DEBUG", []byte("testinfo"), nil)
+		fmt.Println(info)
+	}
+}
+
+func TestUse(t *testing.T) {
+	//Log()
+	connection()
+	Start()
 }

@@ -41,7 +41,7 @@ func checkClose() {
 	//	fmt.Println("aaaaaaa")
 	//}
 	for {
-		time.Sleep(time.Second)
+		time.Sleep(time.Second * 5)
 		if conn == nil {
 			isConnectClosed = true
 			fmt.Println("连接断开，重新连接")
@@ -69,11 +69,9 @@ func checkClose() {
 			isConnectClosed = false
 		}
 	}
-
 }
 
 func HealthyCheck() {
-	go checkClose()
 	r := gin.Default()
 	r.GET("/healthyCheck", healthyCheck)
 	_ = r.Run("0.0.0.0:" + Params.HealthyPort)

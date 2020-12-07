@@ -2,17 +2,16 @@ package gohost
 
 import (
 	"fmt"
+	"github.com/streadway/amqp"
 	"github.com/wikensmith/gohost/queue"
 	"github.com/wikensmith/gohost/structs"
+	"time"
 
 	//"github.com/wikensmith/gohost/structs"
 	"log"
 	"os"
 	"os/signal"
 	"syscall"
-	"time"
-
-	"github.com/streadway/amqp"
 )
 
 var Workers = make(map[string](func(context queue.Context)), 0)
@@ -23,14 +22,16 @@ var conn *amqp.Connection
 //var URI = "amqp://ys:ysmq@192.168.0.100:5672/"
 //var Consumer = "goHost" // 队列消费者名称
 var Params = &structs.Param{
-	Prefetch:    3,
-	Consumer:    "gohost",
-	MqURI:       "amqp://ys:ysmq@192.168.0.100:5672/", // mq 地址
-	Project:     "TestCenter",                         // 日志模块名称
-	Module:      "test",
-	User:        "7921",
-	LogURI:      "http://log.ys.com/log/save", // 日志中心地址
-	HealthyPort: "9000",
+	Prefetch:       3,
+	Consumer:       "gohost",
+	MqURI:          "amqp://ys:ysmq@192.168.0.100:5672/", // mq 地址
+	Project:        "TestCenter",                         // 日志模块名称
+	Module:         "test",
+	User:           "7921",
+	LogURI:         "http://log.ys.com/log/save", // 日志中心地址
+	HealthyPort:    "9000",
+	IsHealthyCheck: false,
+	IsReConnection: false,
 }
 
 //func ReConnection(c *queue.Context) {
@@ -64,11 +65,14 @@ func GetConnection() (conn *amqp.Connection, err error) {
 	if err != nil {
 		return nil, err
 	}
+
+	conn.Config.Heartbeat = time.Minute * 5
 	return conn, nil
 }
 func GetMsgChan(conn *amqp.Connection, queueName string) (<-chan amqp.Delivery, *amqp.Channel, error) {
 	ch, _ := conn.Channel()
 	notifyClose = ch.NotifyClose(errChan)
+
 	if err := ch.Qos(Params.Prefetch, 0, true); err != nil {
 		fmt.Println("error in ch.Qos():, error is :", err.Error())
 	}
@@ -134,18 +138,36 @@ func forever() chan struct{} {
 }
 
 func Start() {
-	go func() {
-		time.Sleep(time.Second * 3)
-		if !conn.IsClosed() {
-			HealthyCheck()
-		}
-	}()
+	if Params.IsHealthyCheck {
+		go func() {
+			time.Sleep(time.Second * 3)
+			if !conn.IsClosed() {
+				HealthyCheck() // 健康检测服务是否开启
+			}
+		}()
+	}
+	if Params.IsReConnection {
+		time.Sleep(time.Second * 10)
+		go checkClose() // 检测断线重连
+	}
 	start()
 }
 func start() {
 	for queueName, f := range Workers {
 		go connect(queueName, f)
 	}
+	//go func() {
+	//	for {
+	//		time.Sleep(time.Second * 3)
+	//		if conn.IsClosed() {
+	//			fmt.Println("closed")
+	//		} else {
+	//			fmt.Println("open")
+	//		}
+	//
+	//	}
+	//
+	//}()
 	<-forever()
 	fmt.Println("程序结束")
 
