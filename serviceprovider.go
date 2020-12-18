@@ -108,6 +108,7 @@ func connect(queueName string, f func(queue.Context)) {
 		Conn:     conn,
 		Delivery: msgChan,
 	}
+
 	for msg := range context.Delivery {
 		context.Cxt = queue.NewContext()
 		context.QueueObj = msg
