@@ -46,31 +46,26 @@ func Log() {
 	}
 }
 
-// 测试断线重边和nextTo
+// 测试断线重连和nextTo
 func connection() {
-
-	Params.Prefetch = 1
-
-	Params.IsReConnection = true
+	Params.Project = "wikenTest"                         // 日志项目
+	Params.Module = "test1"                              // 日志模块
+	Params.User = "7921"                                 // 工号
+	Params.LogURI = "http://192.168.0.212:8081/log/save" // 日志地址
+	Params.IsHealthyCheck = true                         // 是否做健康检测, 默认不做
+	Params.Prefetch = 1                                  // 并发数
+	Params.IsReConnection = true                         // 是否断线生连、debug的时候，调度时间长了，会被认为连接已经断开
 	Workers["YS.机票.国内.支付.wiken.DEBUG"] = func(context queue.Context) {
 		defer func() {
-			if err := recover(); err != nil {
-				fmt.Println("recover:", err.(string))
-			}
-		}()
-		defer func() {
-			context.Ack(false)
+			context.Ack(false) // 参数 true: 发送日志至日志中心 ; false: not send  to log center
+			//context.Nack(true) // not ack msg and send log to log center
 			fmt.Println("acked")
 		}()
-		p := Params
-		fmt.Println(p)
-		if p.Heartbeat == 0 {
-			fmt.Println("ok")
-		}
-
-		body := string(context.QueueObj.Body)
-		fmt.Println(body)
-		info := context.NextTo("system.request", "YS.机票.国内.退票查询.wiken.DEBUG", []byte("testinfo"), nil)
+		body := string(context.QueueObj.Body) // 获取mq消息体
+		header := context.QueueObj.Headers    // 获取mq消息头
+		fmt.Println(body, header)
+		// 发送至新的队列
+		info := context.NextTo("system.request", "YS.机票.国内.退票查询.wiken.DEBUG", []byte("testinfo"), header)
 		fmt.Println(info)
 	}
 }
